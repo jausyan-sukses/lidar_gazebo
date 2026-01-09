@@ -196,7 +196,7 @@ rviz2
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### /scan topic does'nt appears
 
