@@ -125,12 +125,12 @@ Edit file `models/iris_with_ardupilot/model.sdf`: <br> copy paste this plugin
 ```
 
 **Old Plugin ROS1**
-- `libgazebo_ros_laser.so` ❌ (ROS1 only)
-- Parameter `<topicName>` dan `<frameName>` ❌ (deprecated)
+- `libgazebo_ros_laser.so` (ROS1 only)
+- Parameter `<topicName>` dan `<frameName>` (deprecated)
 
 **Latest Plugin ROS2**
-- `libgazebo_ros_ray_sensor.so` ✅ (ROS2)
-- Parameter `<remapping>~/out:=scan</remapping>` ✅
+- `libgazebo_ros_ray_sensor.so` (ROS2)
+- Parameter `<remapping>~/out:=scan</remapping>` 
 
 ---
 
