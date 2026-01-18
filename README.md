@@ -345,6 +345,24 @@ The Livox Mid-360 is compatible with ROS2 and can be simulated in Gazebo using t
 ```
 <img alt="livox" src="img/livox2.png">
 
+## How tu Run Livox Simulation
+1. Run Gazebo
+2. permit bash file <mark>run_all.sh</mark>
+```bash
+chmod +x run_all.sh
+```
+3. Run 
+```bash
+./run_all.sh
+```
+## Rviz Visualization
+RViz2 Setup Instructions:
+1. Set 'Fixed Frame' to: iris::base_link
+2. Add -> PointCloud2
+3. Topic: /livox/lidar
+4. Size: 0.05 or bigger
+5. Color Transformer: Intensity or AxisColor
+
 **Author:** El Jausyan ~ vtol-Soeromiber  
 **Date:** 2026-01-09  
 **Status:** TESTED & WORKING
