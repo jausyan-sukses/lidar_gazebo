@@ -89,6 +89,10 @@ Edit file `models/iris_with_ardupilot/model.sdf`: <br> copy paste this plugin, c
 
 this is 2D lidar visualization must be
 <img alt="2D" src="img/2D.png">
+2D lidar use /LaserScan massegae type, so its only on 2 Dimensional space
+<br> Compatible with
+<li> RP-Lidar C1
+<li> RP-Lidar A1
 
 
 
@@ -175,7 +179,13 @@ this is 2D lidar visualization must be
     </joint>
 ```
 
-**Old Plugin ROS1**
+<img alt="3D" src="img/3D.png">
+Spesification:
+<li> Message type : /PointCloud2
+<li> Compatible only with Velodyne VLP-16
+
+
+<br> **Old Plugin ROS1**
 - `libgazebo_ros_laser.so` (ROS1 only)
 - Parameter `<topicName>` dan `<frameName>` (deprecated)
 
