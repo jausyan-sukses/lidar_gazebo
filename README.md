@@ -85,6 +85,13 @@ Edit file `models/iris_with_ardupilot/model.sdf`: <br> copy paste this plugin, c
     </joint>
 ```
 
+
+
+this is 2D lidar visualization must be
+<img alt="2D" src="img/2D.png">
+
+
+
 ### 3D Lidar 
 ```xml
     <link name="lidar_link">
@@ -175,6 +182,9 @@ Edit file `models/iris_with_ardupilot/model.sdf`: <br> copy paste this plugin, c
 **Latest Plugin ROS2**
 - `libgazebo_ros_ray_sensor.so` (ROS2)
 - Parameter `<remapping>~/out:=scan</remapping>` 
+
+# LIVOX Mid-360 Lidar Simulation using Iris Drone Models
+
 
 
 **Author:** El Jausyan ~ vtol-Soeromiber  
