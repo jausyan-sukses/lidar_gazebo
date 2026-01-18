@@ -11,7 +11,7 @@ Edit file `models/iris_with_ardupilot/model.sdf`: <br> copy paste this plugin, c
 <li> ROS-2 Humble
 <li> Gazebo Classic
 
-### 2D Lidar
+### 2D Lidar RP-Lidar
 
 #### What is 2D Lidar?
 2D Lidar is a laser-based sensor that scans its environment in a single horizontal plane, producing a two-dimensional map of distances to surrounding objects. It is commonly used for obstacle detection, mapping, and navigation in robotics.
@@ -118,7 +118,7 @@ this is 2D lidar visualization must be
 
 
 
-### 3D Lidar 
+### 3D Lidar Velodyne VLP-16
 #### What is 3D Lidar?
 3D Lidar is a sensor that scans its environment in both horizontal and vertical directions, creating a three-dimensional point cloud of the surroundings. It is widely used for advanced mapping, object detection, and autonomous navigation.
 
