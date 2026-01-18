@@ -1,5 +1,36 @@
 # 2D and 3D Lidar Simulation in Gazebo 11
 
+## Introduction: Basic Theory of 2D and 3D Lidar
+
+Lidar (Light Detection and Ranging) is a remote sensing technology that uses laser light to measure distances to objects and map their surroundings. It works by emitting laser pulses and detecting the time it takes for each pulse to reflect back from surfaces in the environment. This time-of-flight measurement allows lidar sensors to calculate precise distances and generate detailed spatial information.
+
+**2D Lidar** scans a single horizontal plane, producing a two-dimensional map of the environment. It is widely used for applications such as obstacle avoidance, mapping, and navigation in ground robots and drones where only horizontal information is needed.
+
+**3D Lidar** extends this concept by scanning in both horizontal and vertical directions, capturing a full three-dimensional point cloud of the surroundings. This enables advanced perception, mapping, and object detection for autonomous vehicles, drones, and robots that require a comprehensive understanding of their environment.
+
+Both 2D and 3D lidar operate on the same basic principle: emitting laser beams, measuring their reflections, and using this data to reconstruct the shape and position of objects. The main difference lies in the dimensionality and density of the data they provide.
+
+## Lidar Distance Calculation Formula
+
+The distance to an object is calculated using the time-of-flight (ToF) principle:
+
+$$
+	ext{Distance} = \frac{c \times t}{2}
+$$
+
+Where:
+- $c$ = speed of light ($\approx 3 \times 10^8$ m/s)
+- $t$ = time taken for the laser pulse to travel to the object and back (in seconds)
+- The division by 2 accounts for the round trip (to the object and back).
+
+### Example Calculation
+Suppose a lidar sensor measures a round-trip time $t = 20$ nanoseconds ($20 \times 10^{-9}$ s):
+
+$$
+	ext{Distance} = \frac{3 \times 10^8 \times 20 \times 10^{-9}}{2} = \frac{6 \times 10^0}{2} = 3\ \text{meters}
+$$
+
+So, the object is 3 meters away from the lidar sensor.
 this is tutorial how to simulating 2D lidaro in Gazebo <mark>Remember this is only for simulation purpose, if u want to try in the real drone make sure the data is already correct</mark> 
 
 ## Step - 1 : Add lidar into your drone, (2D)
