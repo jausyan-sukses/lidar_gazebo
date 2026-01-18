@@ -1,4 +1,4 @@
-# 2D Lidar Simulation in Gazebo 11
+# 2D and 3D Lidar Simulation in Gazebo 11
 
 this is tutorial how to simulating 2D lidaro in Gazebo <mark>Remember this is only for simulation purpose, if u want to try in the real drone make sure the data is already correct</mark> 
 
@@ -6,8 +6,30 @@ this is tutorial how to simulating 2D lidaro in Gazebo <mark>Remember this is on
 
 Edit file `models/iris_with_ardupilot/model.sdf`: <br> copy paste this plugin, copy paste this plugin into ur iris_with_ardupilot drone model.sdf under <mark> joint name="iris_gimbal_mount" type="revolute" </mark>
 
+### Tested in
+<li> Ubuntu 22
+<li> ROS-2 Humble
+<li> Gazebo Classic
+
 ### 2D Lidar
 
+#### What is 2D Lidar?
+2D Lidar is a laser-based sensor that scans its environment in a single horizontal plane, producing a two-dimensional map of distances to surrounding objects. It is commonly used for obstacle detection, mapping, and navigation in robotics.
+
+#### How does it work?
+A 2D Lidar emits laser beams in a circular pattern parallel to the ground. It measures the time it takes for each beam to reflect off an object and return, calculating the distance to obstacles in a 2D slice of the environment.
+
+#### Specifications
+- **Scan Type:** 2D (single plane)
+- **Message Type:** `sensor_msgs/LaserScan`
+- **Typical Range:** 0.12 m to 12 m (configurable)
+- **Horizontal Resolution:** Up to 360 samples per rotation
+
+#### Compatible 2D Lidars
+- RP-Lidar C1
+- RP-Lidar A1
+
+2D Lidar is suitable for applications where only horizontal obstacle information is needed, such as ground robots or simple drone collision avoidance.
 ```xml
      <!-- 2D Lidar sensor -->
     <link name="lidar_link">
@@ -97,6 +119,23 @@ this is 2D lidar visualization must be
 
 
 ### 3D Lidar 
+#### What is 3D Lidar?
+3D Lidar is a sensor that scans its environment in both horizontal and vertical directions, creating a three-dimensional point cloud of the surroundings. It is widely used for advanced mapping, object detection, and autonomous navigation.
+
+#### How does it work?
+3D Lidar uses multiple laser beams or a rotating mechanism to capture distance data in both horizontal and vertical planes. This results in a dense 3D representation (point cloud) of the environment, allowing for more detailed perception compared to 2D Lidar.
+
+#### Specifications
+- **Scan Type:** 3D (multiple planes)
+- **Message Type:** `sensor_msgs/PointCloud2`
+- **Typical Range:** 0.12 m to 12 m (configurable)
+- **Horizontal Resolution:** 360 samples per rotation
+- **Vertical Resolution:** 16 channels (for VLP-16)
+
+#### Compatible 3D Lidars
+- Velodyne VLP-16
+
+3D Lidar is ideal for drones, autonomous vehicles, and robots that require a full 3D understanding of their environment.
 ```xml
     <link name="lidar_link">
       <pose>0 0 0.25 0 0 0</pose>
@@ -194,8 +233,117 @@ Spesification:
 - Parameter `<remapping>~/out:=scan</remapping>` 
 
 # LIVOX Mid-360 Lidar Simulation using Iris Drone Models
+## Livox Mid-360 Lidar: How It Works and Specifications
 
+### How It Works
+The Livox Mid-360 is a 3D lidar sensor that uses a rotating laser system to scan its environment in a full 360° horizontal field of view and a wide vertical field of view. It emits laser pulses and measures the time it takes for each pulse to return after hitting an object, generating a dense 3D point cloud of the surroundings. The Mid-360 uses a unique non-repetitive scanning pattern, which increases point cloud coverage and reduces blind spots compared to traditional mechanical lidars. This makes it highly effective for mapping, navigation, and obstacle detection in robotics and autonomous vehicles.
 
+### Specifications
+- **Type:** 3D lidar (rotating, non-repetitive scan)
+- **Horizontal Field of View:** 360°
+- **Vertical Field of View:** 62.4° (from -7.22° to +55.22°)
+- **Range:** Up to 200 meters
+- **Points per Second:** Up to 200,000 pts/s
+- **Laser Wavelength:** 905 nm
+- **Mass:** 265 g
+- **Data Output:** `sensor_msgs/PointCloud2` (in simulation)
+- **Typical Applications:** UAVs, autonomous vehicles, robotics, mapping
+
+The Livox Mid-360 is compatible with ROS2 and can be simulated in Gazebo using the provided plugin and configuration. It is suitable for applications requiring high-density, wide-area 3D perception.
+```xml
+    <!-- ===================================================================== -->
+    <!-- LIVOX MID-360 3D LIDAR                                               -->
+    <!-- ===================================================================== -->
+    <link name="livox_mid360">
+      <pose>0 0 0.25 0 0 0</pose>
+      <inertial>
+        <mass>0.265</mass> <!-- Real MID-360 mass: 265g -->
+        <inertia>
+          <ixx>0.0001</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.0001</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0001</izz>
+        </inertia>
+      </inertial>
+      
+      <!-- Visual representation -->
+      <visual name="livox_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.046</radius> <!-- MID-360 diameter ~92mm -->
+            <length>0.072</length> <!-- MID-360 height ~72mm -->
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+        </material>
+      </visual>
+      
+      <collision name="livox_collision">
+        <geometry>
+          <cylinder>  
+            <radius>0.046</radius>
+            <length>0.072</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <!-- Livox MID-360 Sensor -->
+      <sensor type="ray" name="livox_mid360_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>10</update_rate>
+        <always_on>true</always_on>
+        
+        <plugin name="livox_mid360_plugin" filename="libmid360_plugin.so">
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>100</samples>
+                <resolution>1</resolution>
+                <min_angle>0</min_angle>
+                <max_angle>6.28318</max_angle> <!-- 360 degrees -->
+              </horizontal>
+              <vertical>
+                <samples>360</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.126</min_angle> <!-- -7.22 degrees -->
+                <max_angle>0.964</max_angle>  <!-- +55.22 degrees -->
+              </vertical>
+            </scan>
+            <range>
+              <min>0.1</min>
+              <max>200.0</max> <!-- MID-360 max range: 200m -->
+              <resolution>0.002</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.01</stddev>
+            </noise>
+          </ray>
+          
+          <!-- Livox MID-360 specific parameters -->
+          <visualize>false</visualize>
+          <samples>20000</samples> <!-- 200,000 points/s @ 10Hz = 20,000 per frame -->
+          <downsample>1</downsample>
+          <csv_file_name>/home/el-system/ros2_ws/install/mid360_simulation/share/mid360_simulation/scan_mode/mid360.csv</csv_file_name>
+          <topic>livox/lidar</topic>
+          <frame_name>livox_mid360</frame_name>
+        </plugin>
+      </sensor>
+    </link>
+
+    <!-- Joint: Attach Livox to base_link -->
+    <joint name="livox_joint" type="fixed">
+      <parent>iris::base_link</parent>
+      <child>livox_mid360</child>
+    </joint>
+```
+<img alt="livox" src="img/livox2.png">
 
 **Author:** El Jausyan ~ vtol-Soeromiber  
 **Date:** 2026-01-09  
